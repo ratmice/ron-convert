@@ -1,0 +1,12 @@
+[package]
+name = "ron-transcode-json"
+version = "0.1.0"
+authors = ["matt rice <ratmice@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+ron = "0.6.0"
+serde_json = "1.0.57"
+serde = "1.0.115"
+serde-transcode = "1.1.0"
+structopt = "0.3.16"

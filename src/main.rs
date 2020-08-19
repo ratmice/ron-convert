@@ -40,37 +40,6 @@ struct CmdLineOptions {
     output_format: String,
 }
 
-// This sure seemed like a dead end due to a buffet of weirdness
-// involving differing trait bounds,
-// the inability to infer the erased type (when it comes time to pass it to
-// serde_transcode, and of course ownership weirdness
-// Still its worth keeping in history if I feel like revisiting...
-/*
-enum WrapDeserializer<'a, T: 'a> {
-  Ron(ron::de::Deserializer<'a>),
-  Json(serde_json::de::Deserializer<T>),
-}
-
-impl<'a, T: serde_json::de::Read<'a>> WrapDeserializer<'a, T>  {
-  fn from_json(json: serde_json::de::Deserializer<T>) -> Self
-      where T: serde_json::de::Read<'a> + 'a
-  {
-    WrapDeserializer::Json(json)
-  }
-
-  fn from_ron(ron: ron::de::Deserializer<'a>) -> Self {
-    WrapDeserializer::Ron(ron)
-  }
-
-  fn to_erased(&'a mut self) -> Box<dyn erased_serde::Deserializer<'a> + 'a> {
-      match &mut *self {
-         Self::Ron(it) => Box::new(erased_serde::Deserializer::erase(it)),
-         Self::Json(it) => Box::new(erased_serde::Deserializer::erase(it)),
-      }
-  }
-}
-*/
-
 impl CmdLineOptions {
     fn to_ron_pretty_config(&self) -> ron::ser::PrettyConfig {
         let pretty_config = ron::ser::PrettyConfig::new();
